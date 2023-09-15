@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-hzhmp6*$wlxe(1*rz%8epc2vwvgl*k+8r-r=61_p91*x3r35()
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["f57d-103-85-8-4.ngrok-free.app", "127.0.0.1", "localhost", "http://localhost:8080/"]
 
 
 # Application definition
@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'slot_booking',
-    'rest_framework'
+    'rest_framework',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -112,6 +113,19 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = CSRF_TRUSTED_ORIGINS = ("http://localhost:8080", "http://localhost:3000")
+CORS_ALLOW_HEADERS = [
+    "accept",
+    "accept-encoding",
+    "authorization",
+    "content-type",
+    "origin",
+    "user-agent",
+    "x-csrftoken",
+    "x-requested-with",
+]
 
 
 # Static files (CSS, JavaScript, Images)
