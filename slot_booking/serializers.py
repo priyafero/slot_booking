@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from . import models
-from .models import DriverVehicleAssignment
+from .models import DriverVehicleAssignment, DriverTimeslotAssignment
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -16,11 +16,15 @@ class TripSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class DriverTimeslotAssignmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DriverTimeslotAssignment
+        fields = '__all__'
+
 class DriverVehicleAssignmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = DriverVehicleAssignment
         fields = '__all__'
-
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:

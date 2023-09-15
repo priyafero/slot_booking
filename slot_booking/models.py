@@ -47,7 +47,7 @@ class DriverVehicleAssignment(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.driver.name} - {self.vehicle.name}"
+        return f"{self.driver.name} - {self.vehicle.vehicle_number}"
 
 
 class DriverTimeslotAssignment(models.Model):
@@ -87,7 +87,6 @@ class Trip(models.Model):
     end_time = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     driver = models.ForeignKey(Driver, on_delete=models.CASCADE, null=True, blank=True)
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.start_time} - {self.end_time} ({self.status})"

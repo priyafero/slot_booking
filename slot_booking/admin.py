@@ -1,7 +1,8 @@
 # Register your models here.
 from django.contrib import admin
 
-from .models import Customer, Warehouse, Driver, Vehicle, Timeslot, Trip, Order
+from .models import Customer, Warehouse, Driver, Vehicle, Timeslot, Trip, Order, DriverVehicleAssignment, \
+    DriverTimeslotAssignment
 
 
 @admin.register(Customer)
@@ -31,9 +32,19 @@ class TimeslotAdmin(admin.ModelAdmin):
 
 @admin.register(Trip)
 class TripAdmin(admin.ModelAdmin):
-    list_display = ('start_time', 'end_time', 'status', 'driver', 'vehicle')
+    list_display = ('start_time', 'end_time', 'status', 'driver')
 
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('order_no', 'packages', 'weight', 'customer', 'warehouse', 'trip', 'status')
+
+
+@admin.register(DriverVehicleAssignment)
+class DriverVehicleAssignmentAdmin(admin.ModelAdmin):
+    list_display = ('driver', 'vehicle',)
+
+
+@admin.register(DriverTimeslotAssignment)
+class DriverTimeslotAssignmentAdmin(admin.ModelAdmin):
+    list_display = ('driver', 'timeslot',)
