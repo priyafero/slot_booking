@@ -50,6 +50,14 @@ class DriverVehicleAssignment(models.Model):
         return f"{self.driver.name} - {self.vehicle.name}"
 
 
+class DriverTimeslotAssignment(models.Model):
+    driver = models.ForeignKey('Driver', on_delete=models.CASCADE)
+    timeslot = models.ForeignKey('Timeslot', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.driver.name} - {self.timeslot.starttime} to {self.timeslot.endtime}"
+
+
 class Timeslot(models.Model):
     STATUS_CHOICES = [
         ('booked', 'Booked'),
