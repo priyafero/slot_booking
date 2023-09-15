@@ -5,40 +5,41 @@ from django.db import models
 
 class Customer(models.Model):
     name = models.CharField(max_length=255)
-    address_location = models.TextField()
-    time_window = models.CharField(max_length=100)
+    address = models.CharField(max_length=255)
     contact = models.CharField(max_length=100)
+    from_time = models.TimeField(max_length=100)
+    to_time = models.TimeField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
 class Warehouse(models.Model):
-    location = models.CharField(max_length=255)
-    open_time_window = models.CharField(max_length=100)
-    closed_time_window = models.CharField(max_length=100)
+    name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255)
+    from_time = models.TimeField(max_length=100)
+    to_time = models.TimeField(max_length=100)
 
     def __str__(self):
-        return self.location
+        return self.name
 
 
 class Driver(models.Model):
     name = models.CharField(max_length=255)
     contact = models.CharField(max_length=100)
-    shift_time = models.CharField(max_length=100)
     vehicles = models.ManyToManyField('Vehicle', through='DriverVehicleAssignment')
+    shift_start = models.TimeField(max_length=100)
+    shift_end = models.TimeField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
 class Vehicle(models.Model):
-    name = models.CharField(max_length=255)
-    contact = models.CharField(max_length=100)
-    shift_time = models.CharField(max_length=100)
+    vehicle_number = models.CharField(max_length=255)
 
     def __str__(self):
-        return self.name
+        return self.vehicle_number
 
 
 class DriverVehicleAssignment(models.Model):
@@ -89,6 +90,8 @@ class Trip(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.start_time} - {self.end_time} ({self.status})"
@@ -106,12 +109,12 @@ class Order(models.Model):
     ]
 
     order_no = models.CharField(max_length=20, unique=True)
-    packages = models.TextField()
+    packages = models.PositiveIntegerField(default=1)
     weight = models.DecimalField(max_digits=10, decimal_places=2)
     customer = models.ForeignKey('Customer', on_delete=models.CASCADE)
     warehouse = models.ForeignKey('Warehouse', on_delete=models.CASCADE)
     trip = models.ForeignKey('Trip', on_delete=models.SET_NULL, null=True, blank=True)
-    trip_status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
 
     def __str__(self):
-        return f"Order No: {self.order_no} ({self.trip_status})"
+        return f"Order No: {self.order_no} ({self.status})"
