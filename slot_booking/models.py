@@ -66,10 +66,10 @@ class Timeslot(models.Model):
 
     starttime = models.TimeField(max_length=100)
     endtime = models.TimeField(max_length=100)
-    driver = models.ForeignKey('Driver', on_delete=models.CASCADE)
-    warehouse = models.ForeignKey('Warehouse', on_delete=models.CASCADE)
-    trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES)
+    driver = models.ForeignKey('Driver', on_delete=models.CASCADE, null=True, blank=True)
+    warehouse = models.ForeignKey('Warehouse', on_delete=models.CASCADE, null=True, blank=True)
+    trip = models.ForeignKey('Trip', on_delete=models.CASCADE, null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='available')
 
     def __str__(self):
         return f"{self.starttime} - {self.endtime} ({self.status})"
@@ -86,8 +86,8 @@ class Trip(models.Model):
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
-    driver = models.ForeignKey(Driver, on_delete=models.CASCADE)
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    driver = models.ForeignKey(Driver, on_delete=models.CASCADE, null=True, blank=True)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.start_time} - {self.end_time} ({self.status})"
