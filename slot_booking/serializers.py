@@ -17,6 +17,12 @@ class TripSerializer(serializers.ModelSerializer):
 
 
 class DriverTimeslotAssignmentSerializer(serializers.ModelSerializer):
+    driver_name = serializers.CharField(source='driver.name', default=None)
+    driver_shift_start = serializers.CharField(source='driver.shift_start', default=None)
+    driver_shift_end = serializers.CharField(source='driver.shift_end', default=None)
+    time_slot_start_time = serializers.CharField(source='timeslot.starttime', default=None)
+    time_slot_end_time = serializers.CharField(source='timeslot.endtime', default=None)
+    status = serializers.CharField(source='timeslot.get_status_display', default=None)
     class Meta:
         model = DriverTimeslotAssignment
         fields = '__all__'
