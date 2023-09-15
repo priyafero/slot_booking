@@ -51,25 +51,13 @@ class DriverVehicleAssignment(models.Model):
 
 
 class Timeslot(models.Model):
-    START_TIME_CHOICES = [
-        ('Morning', 'Morning'),
-        ('Afternoon', 'Afternoon'),
-        ('Evening', 'Evening'),
-    ]
-
-    END_TIME_CHOICES = [
-        ('Morning', 'Morning'),
-        ('Afternoon', 'Afternoon'),
-        ('Evening', 'Evening'),
-    ]
-
     STATUS_CHOICES = [
         ('booked', 'Booked'),
         ('available', 'Available'),
     ]
 
-    starttime = models.CharField(max_length=20, choices=START_TIME_CHOICES)
-    endtime = models.CharField(max_length=20, choices=END_TIME_CHOICES)
+    starttime = models.TimeField(max_length=100)
+    endtime = models.TimeField(max_length=100)
     driver = models.ForeignKey('Driver', on_delete=models.CASCADE)
     warehouse = models.ForeignKey('Warehouse', on_delete=models.CASCADE)
     trip = models.ForeignKey('Trip', on_delete=models.CASCADE)
