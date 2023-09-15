@@ -1,10 +1,28 @@
-from . import models
-
 from rest_framework import serializers
+
+from . import models
+from .models import DriverVehicleAssignment
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Order
+        fields = '__all__'
+
+
+class TripSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Trip
+        fields = '__all__'
+
+
+class DriverVehicleAssignmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DriverVehicleAssignment
+        fields = '__all__'
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.Customer
         fields = (
@@ -18,7 +36,6 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class VehicleSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.Vehicle
         fields = (
@@ -28,7 +45,6 @@ class VehicleSerializer(serializers.ModelSerializer):
 
 
 class DriverSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.Driver
         fields = (
@@ -41,7 +57,6 @@ class DriverSerializer(serializers.ModelSerializer):
 
 
 class WareHouseSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.Warehouse
         fields = (
@@ -53,7 +68,6 @@ class WareHouseSerializer(serializers.ModelSerializer):
 
 
 class TimeSlotSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = models.Timeslot
         fields = (
